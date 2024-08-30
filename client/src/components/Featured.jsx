@@ -1,17 +1,19 @@
+import useFetch from "../hooks/useFetch";
 import "./featured.css";
 
 const Featured = () => {
+  const {data,loading,error,reFetch}=useFetch("/hotels/countByCity?cities=berlin,london")
   return (
     <div className="featured">
-      <div className="featuredItem">
+  {loading?"Loading please wait": ( <>  <div className="featuredItem">
         <img
 src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"   
        alt=""
           className="featuredImg"
         />
         <div className="featuredTitles">
-          <h1>Dublin</h1>
-          <h2>123 properties</h2>
+          <h1>Berlin</h1>
+          <h2>{data[0]} Properties</h2>
         </div>
       </div>
       
@@ -23,7 +25,7 @@ src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"
         />
         <div className="featuredTitles">
           <h1>Reno</h1>
-          <h2>533 properties</h2>
+          <h2>{data[1]} properties</h2>
         </div>
       </div>
       <div className="featuredItem">
@@ -33,9 +35,9 @@ src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg" 
         />
         <div className="featuredTitles">
           <h1>Austin</h1>
-          <h2>532 properties</h2>
+          <h2>{data[2]} properties</h2>
         </div>
-      </div>
+      </div></>)}
     </div>
   );
 };

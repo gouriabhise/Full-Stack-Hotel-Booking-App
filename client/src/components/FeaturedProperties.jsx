@@ -1,64 +1,31 @@
+import useFetch from "../hooks/useFetch";
 import "./featuredProperties.css";
 
 const FeaturedProperties = () => {
+  const {data,loading,error,reFetch}=useFetch("/hotels?featured=true&limit=4")
+
   return (
     <div className="fp">
-      <div className="fpItem">
+      {loading?"loading":(<>
+       {data.map(item=>( <div className="fpItem" key={item._id}>
         <img
-src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"
+src= {item.photos[0]}
           alt=""
           className="fpImg"
         />
-        <span className="fpName">Aparthotel Stare Miasto</span>
-        <span className="fpCity">Madrid</span>
-        <span className="fpPrice">Starting from $120</span>
-        <div className="fpRating">
-          <button>8.9</button>
+        <span className="fpName"> {item.name}</span>
+        <span className="fpCity">{item.city}</span>
+        <span className="fpPrice">Starting from ${item.cheapestPrice}</span>
+        {item.rating && <div className="fpRating">
+          <button>{item.rating}</button>
           <span>Excellent</span>
-        </div>
-      </div>
-      <div className="fpItem">
-        <img
-src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"     
-     alt=""
-          className="fpImg"
-        />
-        <span className="fpName">Comfort Suites Airport</span>
-        <span className="fpCity">Austin</span>
-        <span className="fpPrice">Starting from $140</span>
-        <div className="fpRating">
-          <button>9.3</button>
-          <span>Exceptional</span>
-        </div>
-      </div>
-      <div className="fpItem">
-        <img
-src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"
-          alt=""
-          className="fpImg"
-        />
-        <span className="fpName">Four Seasons Hotel</span>
-        <span className="fpCity">Lisbon</span>
-        <span className="fpPrice">Starting from $99</span>
-        <div className="fpRating">
-          <button>8.8</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-      <div className="fpItem">
-        <img
-src="https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_960_720.jpg"
-          alt=""
-          className="fpImg"
-        />
-        <span className="fpName">Hilton Garden Inn</span>
-        <span className="fpCity">Berlin</span>
-        <span className="fpPrice">Starting from $105</span>
-        <div className="fpRating">
-          <button>8.9</button>
-          <span>Excellent</span>
-        </div>
-      </div>
+        </div>}
+      </div>))}
+      </>)}
+     
+     
+      
+     
     </div>
   );
 };
